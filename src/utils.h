@@ -1,0 +1,1 @@
+void rfid_read_ID_125KHz(SoftwareSerial* rfid_serial);
