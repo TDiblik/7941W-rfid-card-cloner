@@ -1,33 +1,38 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-#include <utils.h>
+#include <constants.h>
+#include <debug.h>
+#include <rfid.h>
 
-const u16 __utils_response_buf_max__len = 500;
-byte __utils_response_buf[__utils_response_buf_max__len];
+const u16 __utils_response_buf_max_len = 100; // Theoretically, we'll never need more than 20 byte, however I want some leeway
+byte __utils_response_buf[__utils_response_buf_max_len];
 u16 __utils_response_buf_len;
 RFIDResponseCode _rfid_get_response(SoftwareSerial& rfid_serial) {
     u16 i = 0;
 
     delay(200);
-    while ((rfid_serial.available() > 0) && (i < __utils_response_buf_max__len)) {
+    while ((rfid_serial.available() > 0) && (i < __utils_response_buf_max_len)) {
         __utils_response_buf[i++] = rfid_serial.read();
         delay(100);
     }
     __utils_response_buf_len = i;
 
-    Serial.print("Response: ");
+    // In theory, this should get optimized away by the compiler (debug function calls will be empty),
+    // but I want to make sure that this piece of code never runs in production (empty for loop wastes CPU cycles)
+#ifdef DEBUG
+    debug_print("Response: ");
     for (i = 0; i < __utils_response_buf_len; i++) {
-        Serial.print(__utils_response_buf[i], HEX);
-        Serial.print(" ");
+        debug_print_hex(__utils_response_buf[i]);
+        debug_print(" ");
     }
-    Serial.println("");
+    debug_println("");
+#endif
 
     if (__utils_response_buf_len < 3) {
         return 2;
     }
 
-    // 3 => third byte is always the response status code
-    switch (__utils_response_buf[3]) {
+    switch (__utils_response_buf[3]) { // forth byte is always the response status code
     case 0x80:
         return 1;
     case 0x81:
@@ -116,7 +121,7 @@ RFIDResponseCode rfid_write_ID_13_56MHz(SoftwareSerial& rfid_serial, IDResponse&
     return _rfid_write_ID(rfid_serial, id_response, 0x11);
 }
 
-void cleanup_IDResponse(IDResponse& response) {
+void rfid_cleanup_IDResponse(IDResponse& response) {
     if (response.id != nullptr) {
         delete[] response.id;
         response.id = nullptr;
