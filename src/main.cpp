@@ -15,7 +15,7 @@ void debug_println(const char* msg) {
 #endif
 }
 
-void debug_println_response_code(u8 response_code) {
+void debug_println_response_code(RFIDResponseCode response_code) {
   switch (response_code) {
   case 0:
     debug_println("Operation Succeeded");
@@ -24,7 +24,13 @@ void debug_println_response_code(u8 response_code) {
     debug_println("Operation Failed");
     break;
   case 2:
-    debug_println("Undefined response");
+    debug_println("Undefined Response");
+    break;
+  case 3:
+    debug_println("Invalid checksum, the ID read is incorrect");
+    break;
+  case 4:
+    debug_println("No id has been read yet");
     break;
   }
 }
@@ -51,6 +57,9 @@ void loop() {
   }
 
   if (digitalRead(WRITE_125KHz_BUTTON) == HIGH) {
+    debug_println("Writing 125KHz...");
+    RFIDResponseCode response_code = rfid_write_ID_125KHz(rfid_serial, response_id_125khz);
+    debug_println_response_code(response_code);
   }
 
   if (digitalRead(READ_13_56MHz_BUTTON) == HIGH) {
@@ -61,6 +70,9 @@ void loop() {
   }
 
   if (digitalRead(WRITE_13_56MHz_BUTTON) == HIGH) {
+    debug_println("Writing 13.56MHz...");
+    RFIDResponseCode response_code = rfid_write_ID_13_56MHz(rfid_serial, response_id_1356mhz);
+    debug_println_response_code(response_code);
   }
   delay(2500);
 }
