@@ -60,3 +60,25 @@ void rfid_read_ID_125KHz(SoftwareSerial* rfid_serial) {
         break;
     }
 }
+
+void rfid_read_ID_13_56MHz(SoftwareSerial* rfid_serial) {
+    rfid_serial->write((byte)0xAB);
+    rfid_serial->write((byte)0xBA);
+    rfid_serial->write((byte)0x00);  // address
+    rfid_serial->write((byte)0x10);  // command
+    rfid_serial->write((byte)0x00);  // data length
+    rfid_serial->write((byte)0x15);  // XOR checksum
+
+    u8 response_code = _rfid_get_response(rfid_serial);
+    switch (response_code) {
+    case 0:
+        Serial.println("Operation Succeeded");
+        break;
+    case 1:
+        Serial.println("Operation Failed");
+        break;
+    case 2:
+        Serial.println("Undefined response");
+        break;
+    }
+}

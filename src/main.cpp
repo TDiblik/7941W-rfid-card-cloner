@@ -31,7 +31,7 @@ void loop() {
   }
   if (digitalRead(READ_13_56MHz_BUTTON) == HIGH) {
     debug_println("Reading 13.56MHz...");
-    // rfid_get_response(&rfid_serial);
+    rfid_read_ID_13_56MHz(&rfid_serial);
   }
   delay(5000);
 }
