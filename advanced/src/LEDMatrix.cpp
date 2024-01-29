@@ -17,6 +17,10 @@ void LEDMatrix::Setup() {
     this->Draw(SMILE_BITMAP);
     delay(1500);
 #endif
+#if DEBUG
+    delay(250); // wait a bit, just to make sure
+#endif
+    this->Draw(S1_BITMAP);
 }
 
 // TODO: Blinking X/checkmark

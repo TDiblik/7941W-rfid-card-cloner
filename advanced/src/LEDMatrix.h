@@ -98,3 +98,14 @@ static const uint8_t PROGMEM Z3_BITMAP[]
   0b10000001,
   0b10000101,
   0b11110111 };
+
+static const uint8_t* const PROGMEM MENU_BITMAPS[]{
+    S1_BITMAP,
+    S2_BITMAP,
+    S3_BITMAP,
+    Z1_BITMAP,
+    Z2_BITMAP,
+    Z3_BITMAP,
+};
+
+static const uint8_t MENU_BITMAPS_LAST_INDEX = sizeof(MENU_BITMAPS) / sizeof(MENU_BITMAPS[0]) - 1;
