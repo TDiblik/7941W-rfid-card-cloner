@@ -6,10 +6,12 @@
 #include "Joystick.h"
 #include "LEDMatrix.h"
 #include "Menu.h"
+#include "RFID.h"
 
 static Joystick joystick = Joystick(D0, A1, A2);
 static LEDMatrix led_matrix = LEDMatrix();
 static Menu menu = Menu(led_matrix);
+static RFID rfid = RFID(Serial1);
 
 void setup() {
 #if DEBUG
@@ -23,6 +25,9 @@ void setup() {
 
   led_matrix.Setup();
   debug_println("LED Matrix - done");
+
+  rfid.setup();
+  debug_println("Communication with the cloner - done");
 
   debug_println("--- Finished setup successfully ---");
 }

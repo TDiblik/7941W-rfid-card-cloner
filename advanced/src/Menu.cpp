@@ -1,8 +1,10 @@
 #include "Menu.h"
 #include "LEDMatrix.h"
 
-void Menu::ChangePage(JoystickState action) {
+void Menu::HandleInput(JoystickState action) {
     switch (action) {
+    case JoystickState::Centered:
+        break;
     case JoystickState::PointingDown:
         if (this->_current_page_index == MENU_BITMAPS_LAST_INDEX) {
             break;
@@ -17,11 +19,5 @@ void Menu::ChangePage(JoystickState action) {
         this->_current_page_index--;
         this->_matrix_ref.Draw(MENU_BITMAPS[this->_current_page_index]);
         break;
-    default:
-        break;
-    }
-}
-
-void Menu::HandleInput(JoystickState action) {
-    this->ChangePage(action);
+    };
 }

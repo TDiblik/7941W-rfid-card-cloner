@@ -7,7 +7,6 @@ class Menu {
 private:
     uint8_t _current_page_index = 0;
     LEDMatrix& _matrix_ref;
-    void ChangePage(JoystickState action);
     // void ExecuteSelectedAction(JoystickState action);
 public:
     Menu(LEDMatrix& matrix_ref) : _matrix_ref(matrix_ref) {};
