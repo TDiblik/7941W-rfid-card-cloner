@@ -10,8 +10,8 @@
 
 static Joystick joystick = Joystick(D0, A1, A2);
 static LEDMatrix led_matrix = LEDMatrix();
-static Menu menu = Menu(led_matrix);
 static RFID rfid = RFID(Serial1);
+static Menu menu = Menu(led_matrix, rfid);
 
 void setup() {
 #if DEBUG

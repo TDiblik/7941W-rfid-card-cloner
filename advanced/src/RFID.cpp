@@ -1,6 +1,20 @@
 #include "RFID.h"
 #include "debug.h"
 
+void RFID::setup() {
+    this->_serial.begin(115000);
+}
+
+void RFID::read_125KHz() {
+    Serial.println("A");
+    RFIDReadResult* result = this->_read_id((uint8_t)0x15);
+    Serial.println("B");
+};
+
+void RFID::read_1356MHz() {
+    this->_read_id((uint8_t)0x10);
+};
+
 RFIDResponse RFID::_read_response_into_buf() {
     // Cleanup buffer before reading into it
     for (uint16_t i = 0; i < MAX_POSSIBLE_RESPONSE_LEN; i++) {
@@ -102,9 +116,4 @@ RFIDResponse RFID::_write_id(uint8_t command, uint8_t* id, uint8_t id_length) {
     this->_serial.write(checksum);          // XOR checksum
 
     return this->_read_response_into_buf();
-}
-
-
-void RFID::setup() {
-    this->_serial.begin(115000);
 }
