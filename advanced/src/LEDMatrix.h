@@ -97,6 +97,36 @@ static const uint8_t PROGMEM LOADING_BITMAP[]
   0b01100100,
   0b01011000 };
 
+static const uint8_t PROGMEM NUMBER_2_BITMAP[]
+{ 0b00011000,
+  0b00100100,
+  0b01000100,
+  0b00000100,
+  0b00001000,
+  0b00010000,
+  0b00100000,
+  0b01111110 };
+
+static const uint8_t PROGMEM NUMBER_3_BITMAP[]
+{ 0b00111100,
+  0b00100100,
+  0b00000100,
+  0b00001100,
+  0b00001100,
+  0b00000100,
+  0b00100100,
+  0b00111100 };
+
+static const uint8_t PROGMEM NUMBER_23_BITMAP[]
+{ 0b01000111,
+  0b10100101,
+  0b10100001,
+  0b00100011,
+  0b01000011,
+  0b10000001,
+  0b10000101,
+  0b11100111 };
+
 /* ---------------
     MENU BITMAPS
    --------------- */

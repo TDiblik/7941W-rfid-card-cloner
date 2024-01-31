@@ -42,7 +42,7 @@ RFIDResponse RFID::_read_response_into_buf() {
     case 0x81:
         return RFIDResponse::Success;
     case 0x80:
-        return RFIDResponse::Fail;
+        return RFIDResponse::Failure;
     default:
         return RFIDResponse::UndefinedResponse;
     }
@@ -91,7 +91,7 @@ RFIDReadResult* RFID::_read_id(uint8_t command) {
 }
 
 RFIDResponse RFID::_write_id(uint8_t command, RFIDReadResult* card_info) {
-    if (card_info == nullptr || card_info->status == RFIDResponse::Fail || card_info->id_length < 1) {
+    if (card_info == nullptr || card_info->status == RFIDResponse::Failure || card_info->id_length < 1) {
         return RFIDResponse::NoCardProvidedToWriteFunction;
     }
 

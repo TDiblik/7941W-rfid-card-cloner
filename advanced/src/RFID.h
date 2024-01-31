@@ -8,7 +8,7 @@
 
 enum RFIDResponse {
     Success,
-    Fail,
+    Failure,
     UndefinedResponse,
     InvalidChecksum,
     NoCardProvidedToWriteFunction
@@ -20,7 +20,7 @@ struct RFIDReadResult {
     uint8_t id_length;
 
     ~RFIDReadResult() {
-        delete id;
+        delete[] id;
     }
 };
 

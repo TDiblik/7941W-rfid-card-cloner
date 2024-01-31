@@ -5,7 +5,6 @@
 #include "RFID.h"
 
 #define NUMBER_OF_EXECUTE_RETRIES (uint8_t)5
-#define WRITE_RETRY_DELAY_MS (uint16_t)1000
 
 class Menu {
 private:
