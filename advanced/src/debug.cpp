@@ -19,7 +19,7 @@ void debug_println(const char* msg) {
 #endif
 }
 
-void debug_println_double(double value) {
+void debug_println_number(double value) {
 #if DEBUG
     Serial.println(value, 2);
 #endif

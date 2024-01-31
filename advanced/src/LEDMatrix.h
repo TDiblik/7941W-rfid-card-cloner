@@ -9,13 +9,14 @@ private:
 
 public:
     LEDMatrix() : _matrix(Adafruit_8x8matrix()) {};
-    void Setup();
-    void Draw(const uint8_t* bitmap);
+    void setup();
+    void blink(const uint8_t* bitmap, uint8_t number_of_blinks = 3, uint16_t ms_per_blink = 500);
+    void draw(const uint8_t* bitmap);
 };
 
-/* -----------------
-    WELCOME BITMAPS
-   ----------------- */
+/* ----------------
+    HELPER BITMAPS
+   ---------------- */
 static const uint8_t PROGMEM HI_BITMAP[]
 { 0b00000000,
   0b01001010,
@@ -35,6 +36,66 @@ static const uint8_t PROGMEM SMILE_BITMAP[] =
   0b10011001,
   0b01000010,
   0b00111100 };
+
+static const uint8_t PROGMEM CHECKMARK_BITMAP[]
+{ 0b00000001,
+  0b00000011,
+  0b00000111,
+  0b00001110,
+  0b01011100,
+  0b11111000,
+  0b01110000,
+  0b00100000 };
+
+static const uint8_t PROGMEM X_BITMAP[]
+{ 0b11000011,
+  0b11100111,
+  0b01100110,
+  0b00011000,
+  0b00011000,
+  0b01100110,
+  0b11100111,
+  0b11000011 };
+
+static const uint8_t PROGMEM QUESTIONMARK_BITMAP[]
+{ 0b00011000,
+  0b00111100,
+  0b00101100,
+  0b00001100,
+  0b00011000,
+  0b00011000,
+  0b00000000,
+  0b00011000 };
+
+static const uint8_t PROGMEM EXCLAMATIONMARK_BITMAP[]
+{ 0b01111110,
+  0b00111100,
+  0b00111100,
+  0b00011000,
+  0b00011000,
+  0b00000000,
+  0b00011000,
+  0b00011000 };
+
+static const uint8_t PROGMEM NO_CARD_PROVIDED_BITMAP[]
+{ 0b10000000,
+  0b01111100,
+  0b00100100,
+  0b00110100,
+  0b00101100,
+  0b00100100,
+  0b00111110,
+  0b00000001 };
+
+static const uint8_t PROGMEM LOADING_BITMAP[]
+{ 0b00011010,
+  0b00100110,
+  0b01001110,
+  0b10000000,
+  0b00000001,
+  0b01110010,
+  0b01100100,
+  0b01011000 };
 
 /* ---------------
     MENU BITMAPS

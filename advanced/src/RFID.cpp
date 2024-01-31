@@ -2,24 +2,20 @@
 #include "debug.h"
 
 void RFID::setup() {
-    this->_serial.begin(115000);
+    this->_serial.begin(115200);
 }
 
-void RFID::read_125KHz() {
-    Serial.println("A");
-    RFIDReadResult* result = this->_read_id((uint8_t)0x15);
-    Serial.println("B");
-};
-
-void RFID::read_1356MHz() {
-    this->_read_id((uint8_t)0x10);
-};
+RFIDReadResult* RFID::read_id_125KHz() { return this->_read_id((uint8_t)0x15); };
+RFIDReadResult* RFID::read_id_1356MHz() { return this->_read_id((uint8_t)0x10); };
+RFIDResponse RFID::write_id_125KHz(RFIDReadResult* card_info) { return this->_write_id((uint8_t)0x16, card_info); };
+RFIDResponse RFID::write_id_1356MHz(RFIDReadResult* card_info) { return this->_write_id((uint8_t)0x11, card_info); };
 
 RFIDResponse RFID::_read_response_into_buf() {
-    // Cleanup buffer before reading into it
+    // Cleanup before reading
     for (uint16_t i = 0; i < MAX_POSSIBLE_RESPONSE_LEN; i++) {
         this->__response_buf[i] = 0;
     }
+    this->_serial.flush();
 
     // Read everything
     delay(200);
@@ -94,26 +90,26 @@ RFIDReadResult* RFID::_read_id(uint8_t command) {
     return result;
 }
 
-RFIDResponse RFID::_write_id(uint8_t command, uint8_t* id, uint8_t id_length) {
-    if (id_length < 1) {
-        return RFIDResponse::NoIDProvidedToWriteFunction;
+RFIDResponse RFID::_write_id(uint8_t command, RFIDReadResult* card_info) {
+    if (card_info == nullptr || card_info->status == RFIDResponse::Fail || card_info->id_length < 1) {
+        return RFIDResponse::NoCardProvidedToWriteFunction;
     }
 
     // Prepare checksum
-    uint8_t checksum = 0x00 ^ command ^ id_length;
+    uint8_t checksum = 0x00 ^ command ^ card_info->id_length;
 
     // Send the command
-    this->_serial.write((uint8_t)0xAB);     // protocol header
-    this->_serial.write((uint8_t)0xBA);     // protocol header
-    this->_serial.write((uint8_t)0x00);     // address
-    this->_serial.write(command);           // command
-    this->_serial.write(id_length);         // data length
-    for (uint8_t i = 0; i < id_length; i++) {
-        uint8_t current_byte = id[i];
+    this->_serial.write((uint8_t)0xAB);         // protocol header
+    this->_serial.write((uint8_t)0xBA);         // protocol header
+    this->_serial.write((uint8_t)0x00);         // address
+    this->_serial.write(command);               // command
+    this->_serial.write(card_info->id_length);  // data length
+    for (uint8_t i = 0; i < card_info->id_length; i++) {
+        uint8_t current_byte = card_info->id[i];
         this->_serial.write(current_byte);
         checksum ^= current_byte;
     }
-    this->_serial.write(checksum);          // XOR checksum
+    this->_serial.write(checksum);              // XOR checksum
 
     return this->_read_response_into_buf();
 }

@@ -10,7 +10,7 @@
 
 static Joystick joystick = Joystick(D0, A1, A2);
 static LEDMatrix led_matrix = LEDMatrix();
-static RFID rfid = RFID(Serial1);
+static RFID rfid = RFID(Serial1); // Connect RFID-RX->Board-D6 ; RFID-TX->Board-D7, refers to https://files.seeedstudio.com/wiki/XIAO-BLE/pinout2.png
 static Menu menu = Menu(led_matrix, rfid);
 
 void setup() {
@@ -20,10 +20,10 @@ void setup() {
   debug_println("--- Setting up HW components ---");
   delay(500); // wait for a bit, just to make sure
 
-  joystick.Setup();
+  joystick.setup();
   debug_println("Joystick - done");
 
-  led_matrix.Setup();
+  led_matrix.setup();
   debug_println("LED Matrix - done");
 
   rfid.setup();
@@ -33,5 +33,5 @@ void setup() {
 }
 
 void loop() {
-  menu.HandleInput(joystick.GetStatus());
+  menu.handle_input(joystick.get_status());
 }

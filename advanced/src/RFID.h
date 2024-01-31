@@ -11,7 +11,7 @@ enum RFIDResponse {
     Fail,
     UndefinedResponse,
     InvalidChecksum,
-    NoIDProvidedToWriteFunction
+    NoCardProvidedToWriteFunction
 };
 
 struct RFIDReadResult {
@@ -24,20 +24,24 @@ struct RFIDReadResult {
     }
 };
 
+// For more information about the device/protocols used, refer to
+// https://www.icstation.com/dual-frequency-rfid-reader-writer-wireless-module-uart-1356mhz-125khz-icid-card-p-12444.html
 class RFID {
 private:
     arduino::UART& _serial;
 
     uint8_t __response_buf[MAX_POSSIBLE_RESPONSE_LEN];
     uint8_t __response_buf_len;
-
     RFIDResponse _read_response_into_buf();
+
     RFIDReadResult* _read_id(uint8_t command);
-    RFIDResponse _write_id(uint8_t command, uint8_t* id, uint8_t id_length);
+    RFIDResponse _write_id(uint8_t command, RFIDReadResult* card_info);
 
 public:
     RFID(arduino::UART& serial) : _serial(serial) {};
     void setup();
-    void read_125KHz();
-    void read_1356MHz();
+    RFIDReadResult* read_id_125KHz();
+    RFIDReadResult* read_id_1356MHz();
+    RFIDResponse write_id_125KHz(RFIDReadResult* card_info);
+    RFIDResponse write_id_1356MHz(RFIDReadResult* card_info);
 };
