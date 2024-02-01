@@ -16,8 +16,11 @@ private:
     RFIDReadResult* _last_read_1356MHz = nullptr;
 
     typedef void(*MenuActions)(Menu*);
-    MenuActions _menu_actions[6] = { &Menu::ExecuteS1Wrapper, &Menu::ExecuteS2Wrapper, &Menu::ExecuteS3Wrapper,
-                                   &Menu::ExecuteZ1Wrapper, &Menu::ExecuteZ2Wrapper, &Menu::ExecuteZ3Wrapper, };
+    MenuActions _menu_actions[MENU_BITMAPS_LAST_INDEX + 1] =
+    { &Menu::ExecuteS1Wrapper, &Menu::ExecuteS2Wrapper, &Menu::ExecuteS3Wrapper,
+      &Menu::ExecuteZ1Wrapper, &Menu::ExecuteZ2Wrapper, &Menu::ExecuteZ3Wrapper,
+      &Menu::ExecuteDRWrapper, &Menu::ExecuteDZWrapper
+    };
 
     void ExecuteS1();
     static void ExecuteS1Wrapper(Menu* menu) { menu->ExecuteS1(); }
@@ -31,6 +34,10 @@ private:
     static void ExecuteZ2Wrapper(Menu* menu) { menu->ExecuteZ2(); }
     void ExecuteZ3();
     static void ExecuteZ3Wrapper(Menu* menu) { menu->ExecuteZ3(); }
+    void ExecuteDR();
+    static void ExecuteDRWrapper(Menu* menu) { menu->ExecuteDR(); }
+    void ExecuteDZ();
+    static void ExecuteDZWrapper(Menu* menu) { menu->ExecuteDZ(); }
 
     void _display_rfid_response_to_symbol(RFIDResponse status);
 public:

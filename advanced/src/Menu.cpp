@@ -2,6 +2,33 @@
 #include "LEDMatrix.h"
 #include "debug.h"
 
+void Menu::handle_input(JoystickState action) {
+    switch (action) {
+    case JoystickState::Centered:
+        delay(10);
+        return;
+    case JoystickState::Pressed:
+        this->_matrix_ref.draw(LOADING_BITMAP);
+        this->_menu_actions[this->_current_page_index](this);
+        break;
+    case JoystickState::PointingDown:
+        if (this->_current_page_index == 0) {
+            break;
+        }
+        this->_current_page_index--;
+        this->_matrix_ref.draw(MENU_BITMAPS[this->_current_page_index]);
+        break;
+    case JoystickState::PointingUP:
+        if (this->_current_page_index == MENU_BITMAPS_LAST_INDEX) {
+            break;
+        }
+        this->_current_page_index++;
+        this->_matrix_ref.draw(MENU_BITMAPS[this->_current_page_index]);
+        break;
+    };
+    delay(500);
+}
+
 void Menu::ExecuteS1() {
     RFIDReadResult* result_125 = nullptr;
     RFIDReadResult* result_1356 = nullptr;
@@ -108,8 +135,8 @@ void Menu::ExecuteZ1() {
     {
         RFIDReadResult* _ = this->_rfid_ref.read_id_125KHz();
         delete _;
-        RFIDReadResult* _ = this->_rfid_ref.read_id_1356MHz();
-        delete _;
+        RFIDReadResult* __ = this->_rfid_ref.read_id_1356MHz();
+        delete __;
     }
 
     RFIDResponse response_125;
@@ -171,6 +198,10 @@ void Menu::ExecuteZ3() {
     this->_display_rfid_response_to_symbol(response);
 }
 
+void Menu::ExecuteDR() {
+
+}
+
 void Menu::_display_rfid_response_to_symbol(RFIDResponse status) {
     switch (status) {
     case RFIDResponse::Success:
@@ -189,31 +220,4 @@ void Menu::_display_rfid_response_to_symbol(RFIDResponse status) {
         this->_matrix_ref.blink(NO_CARD_PROVIDED_BITMAP);
         break;
     }
-}
-
-void Menu::handle_input(JoystickState action) {
-    switch (action) {
-    case JoystickState::Centered:
-        delay(10);
-        return;
-    case JoystickState::Pressed:
-        this->_matrix_ref.draw(LOADING_BITMAP);
-        this->_menu_actions[this->_current_page_index](this);
-        break;
-    case JoystickState::PointingDown:
-        if (this->_current_page_index == 0) {
-            break;
-        }
-        this->_current_page_index--;
-        this->_matrix_ref.draw(MENU_BITMAPS[this->_current_page_index]);
-        break;
-    case JoystickState::PointingUP:
-        if (this->_current_page_index == MENU_BITMAPS_LAST_INDEX) {
-            break;
-        }
-        this->_current_page_index++;
-        this->_matrix_ref.draw(MENU_BITMAPS[this->_current_page_index]);
-        break;
-    };
-    delay(500);
 }
