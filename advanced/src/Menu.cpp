@@ -198,10 +198,6 @@ void Menu::ExecuteZ3() {
     this->_display_rfid_response_to_symbol(response);
 }
 
-void Menu::ExecuteDR() {
-
-}
-
 void Menu::_display_rfid_response_to_symbol(RFIDResponse status) {
     switch (status) {
     case RFIDResponse::Success:

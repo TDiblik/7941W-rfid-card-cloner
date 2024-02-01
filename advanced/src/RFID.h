@@ -44,6 +44,4 @@ public:
     RFIDReadResult* read_id_1356MHz();
     RFIDResponse write_id_125KHz(RFIDReadResult* card_info);
     RFIDResponse write_id_1356MHz(RFIDReadResult* card_info);
-    void read_all_sector_data();
-    void write_sector_data();
 };

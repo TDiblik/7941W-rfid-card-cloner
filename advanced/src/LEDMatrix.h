@@ -190,35 +190,13 @@ static const uint8_t PROGMEM Z3_BITMAP[]
   0b10000101,
   0b11110111 };
 
-static const uint8_t PROGMEM DR_BITMAP[]
-{ 0b00000000,
-  0b11001100,
-  0b10101010,
-  0b10101010,
-  0b10101100,
-  0b10101010,
-  0b11001001,
-  0b00000000 };
-
-static const uint8_t PROGMEM DZ_BITMAP[]
-{ 0b00000000,
-  0b11001111,
-  0b10100001,
-  0b10100010,
-  0b10100100,
-  0b10101000,
-  0b11001111,
-  0b00000000 };
-
 static const uint8_t* const PROGMEM MENU_BITMAPS[]{
     S1_BITMAP,
     S2_BITMAP,
     S3_BITMAP,
     Z1_BITMAP,
     Z2_BITMAP,
-    Z3_BITMAP,
-    DR_BITMAP,
-    DZ_BITMAP
+    Z3_BITMAP
 };
 
 static const uint8_t MENU_BITMAPS_LAST_INDEX = sizeof(MENU_BITMAPS) / sizeof(MENU_BITMAPS[0]) - 1;

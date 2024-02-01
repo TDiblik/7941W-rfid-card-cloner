@@ -114,15 +114,3 @@ RFIDResponse RFID::_write_id(uint8_t command, RFIDReadResult* card_info) {
     return this->_read_rw_response_into_buf();
 
 }
-
-void RFID::read_all_sector_data() {
-    const uint8_t command = 0x17;
-    this->_serial.write((uint8_t)0xAB);  // protocol header
-    this->_serial.write((uint8_t)0xBA);  // protocol header
-    this->_serial.write((uint8_t)0x00);  // address
-    this->_serial.write(command);        // command
-    this->_serial.write((uint8_t)0x00);  // data length
-    this->_serial.write(command);        // XOR checksum (in this case always equal to the command, no need to calculate)
-
-    // todo
-}
