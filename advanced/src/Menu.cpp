@@ -17,7 +17,7 @@ void Menu::ExecuteS1() {
         if (!success_1356 && result_1356->status == RFIDResponse::Success) { success_1356 = true; }
         if (!success_1356 && i != NUMBER_OF_EXECUTE_RETRIES) { delete result_1356; }
 
-        if (success_1356 && success_125) { break; }
+        if (success_125 && success_1356) { break; }
     }
 
     // Both 125KHz and 13.56MHz got recognized.
@@ -104,7 +104,41 @@ void Menu::ExecuteS3() {
 */
 
 void Menu::ExecuteZ1() {
-    // todo: try to write into both
+    // Refer to "Note 1"
+    {
+        RFIDReadResult* _ = this->_rfid_ref.read_id_125KHz();
+        delete _;
+        RFIDReadResult* _ = this->_rfid_ref.read_id_1356MHz();
+        delete _;
+    }
+
+    RFIDResponse response_125;
+    RFIDResponse response_1356;
+
+    bool success_125 = false;
+    bool success_1356 = false;
+    for (uint8_t i = 1; i <= NUMBER_OF_EXECUTE_RETRIES; i++) {
+        if (!success_125) { response_125 = this->_rfid_ref.write_id_125KHz(this->_last_read_125KHz); }
+        if (!success_1356) { response_1356 = this->_rfid_ref.write_id_1356MHz(this->_last_read_1356MHz); }
+
+        if (!success_125 && response_125 == RFIDResponse::Success) { success_125 = true; }
+        if (!success_1356 && response_1356 == RFIDResponse::Success) { success_1356 = true; }
+
+        if (success_125 && success_1356) { break; }
+    }
+
+    if (success_125 && success_1356) {
+        this->_matrix_ref.blink(NUMBER_23_BITMAP);
+        delay(1000);
+        this->_display_rfid_response_to_symbol(RFIDResponse::Success);
+        return;
+    }
+
+    this->_matrix_ref.blink(NUMBER_2_BITMAP);
+    this->_display_rfid_response_to_symbol(response_125);
+    delay(1000);
+    this->_matrix_ref.blink(NUMBER_3_BITMAP);
+    this->_display_rfid_response_to_symbol(response_1356);
 }
 
 void Menu::ExecuteZ2() {
