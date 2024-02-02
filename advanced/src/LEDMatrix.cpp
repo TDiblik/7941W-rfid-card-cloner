@@ -4,7 +4,7 @@
 
 void LEDMatrix::setup() {
     this->_matrix.begin(0x70);
-    this->_matrix.setBrightness(15);
+    this->_matrix.setBrightness(1);
     this->_matrix.blinkRate(HT16K33_BLINK_DISPLAYON);
     this->_matrix.setDisplayState(true);
     this->_matrix.setCursor(0, 0);
