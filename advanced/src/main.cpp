@@ -14,9 +14,8 @@ static RFID rfid = RFID(Serial1); // Connect RFID-RX->Board-D6 ; RFID-TX->Board-
 static Menu menu = Menu(led_matrix, rfid);
 
 void setup() {
-#if DEBUG
-  Serial.begin(9600);
-#endif
+  Serial.begin(9600); // always try to establish a connection (even in release mode), it's easier to flash new versions / diagnose errors this way
+
   debug_println("--- Setting up HW components ---");
   delay(500); // wait for a bit, just to make sure
 
