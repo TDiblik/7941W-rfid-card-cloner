@@ -38,8 +38,8 @@ However, as a user, you don't really care about that. (if you indeed care more a
 
 If you're running in DEBUG mode (variable `DEBUG` inside `./advanced/src/debug.h` is set to `true` at the time of compilation), you will **skip** the initial animation where two images appear on the display for 1.5s (both):
 
-<img src="./resources/joystick-states/HI.jpg" alt="Jostick state with HI written on the display" width="150">
-<img src="./resources/joystick-states/SMILE.jpg" alt="Jostick state with smiley face on the display" width="150">
+<img src="./resources/joystick-states/hi.jpg" alt="Jostick state with HI written on the display" width="150">
+<img src="./resources/joystick-states/smile.jpg" alt="Jostick state with smiley face on the display" width="150">
 
 After that, you will be put into the menu. This is the only way to control the device.
 There are two main "modes". The S mode and Z mode. Both have 3 options. You can switch between the options and modes using the joystick (UP and DOWN movements) [if you're confused about the wiring, consult `./advanced/src/Joystick.cpp`].
@@ -61,7 +61,7 @@ After each scan, there is a result shown. If the result **is not a Failure**, th
 
 **Success:**
 Everything went according to the plan: <br/>
-<img src="./resources/joystick-states/CHECKMARK.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/checkmark.jpg" width="150"> <br/>
 
 **Undefined Response:**
 There were errors while communicating with the cloning device. This can (for example) occur when there is not enough time for the card to be scanned: <br/>
@@ -76,14 +76,14 @@ The action failed. Nothing is stored into the RAM. This can occur when there is 
 <img src="./resources/joystick-states/x.jpg" width="150"> <br/>
 
 **S1 Success (type 1):** <br />
-<img src="./resources/joystick-states/CHECKMARK.jpg" width="150"> <img src="./resources/joystick-states/23.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/23.jpg" width="150"><br />
 Both the type 2 and type 3 cards were found and scanned. This can happen when one card supports multiple frequencies, or when multiple cards were placed near the scanner.
 
 **S1 Success (type 2):** <br />
-<img src="./resources/joystick-states/CHECKMARK.jpg" width="150"> <img src="./resources/joystick-states/2.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/2.jpg" width="150"><br />
 
 **S1 Success (type 3):** <br />
-<img src="./resources/joystick-states/CHECKMARK.jpg" width="150"> <img src="./resources/joystick-states/3.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/3.jpg" width="150"><br />
 
 ## Z mode
 
