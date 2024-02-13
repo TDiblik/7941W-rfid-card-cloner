@@ -1,10 +1,22 @@
-# Showcase
+# RFID Card Cloning Device
 
-<!-- todo: add a video where I showcase the advanced version -->
+- [Showcase](#showcase)
+- [Prerequisites](#prerequisites)
+- [What HW do I need?](#what-hw-do-i-need)
+- [How does it work?](#how-does-it-work)
+  - [After turning the device on](#after-turning-the-device-on)
+  - [S mode](#s-mode)
+  - [Z mode](#z-mode)
+- [How to setup?](#how-to-setup)
+- [Bitmap generator](#bitmap-generator)
+- [Development notes](#development-notes)
+- [Legal notice](#legal-notice)
+
+# Showcase
 
 [![Showcase gif](./resources/showcase.gif)](./resources/showcase.mp4)
 
-# Notes (before starting)
+# Prerequisites
 
 - Whenever the docs call something "a/the display", it means the 8x8 LED matrix
 - Whenever the docs say "input", it means the Joystick, or selecting something with the Joystick
@@ -174,3 +186,7 @@ void loop() {
 
 1. Before pushing a release version of the firmware, make sure to change the `DEBUG` variable inside `./advanced/src/debug.h` to `false` at the time of compilation.
 2. As a convention, all bitmaps are stored inside the `./advanced/src/LEDMatrix.h` and named in UPPERCASE.
+
+# Legal notice
+
+The code/device/files (further addressed as just "device") provided are for educational purposes only and should not be used for any malicious or illegal activities. Any unauthorized use of this device is strictly prohibited and violators will be held liable for their actions. The device is intended to be used solely for the purpose of learning and understanding vulnerabilities and should not be executed on any systems without proper authorization and oversight. The author of this device takes no responsibility for any actions taken by any party using this device and is not liable for any damages or harm caused as a result of its use.
