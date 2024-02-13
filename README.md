@@ -59,9 +59,9 @@ There are two main "modes". The S mode and Z mode. Both have 3 options. You can 
 ## S mode
 
 This mode is used for scanning cards. You can choose from one of 3 options (S1, S2, S3). <br/>
-<img src="./resources/joystick-states/S1.jpg" width="150">
-<img src="./resources/joystick-states/S2.jpg" width="150">
-<img src="./resources/joystick-states/S3.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/S1.jpg" alt="Jostick state with S1 option selected" width="150">
+<img src="./resources/joystick-states/S2.jpg" alt="Jostick state with S2 option selected" width="150">
+<img src="./resources/joystick-states/S3.jpg" alt="Jostick state with S3 option selected" width="150"> <br/>
 After you've selected the desired mode, place the card near the scanner (back of the device) and press down on the joystick. When the S mode succeeds, the card is remembered in RAM. When the S mode fails, nothing happens. The last remembered card is **always** the last successful scan result. After a successful scan, the result of the scan (image drawn to the display) stays there until a new input is registered. <br/>
 As mentioned before, there are 3 options: <br/>
 
@@ -73,36 +73,36 @@ After each scan, there is a result shown. If the result **is not a Failure**, th
 
 **Success:**
 Everything went according to the plan: <br/>
-<img src="./resources/joystick-states/checkmark.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/checkmark.jpg" alt="Jostick state with checkmark on the display" width="150"> <br/>
 
 **Undefined Response:**
 There were errors while communicating with the cloning device. This can (for example) occur when there is not enough time for the card to be scanned: <br/>
-<img src="./resources/joystick-states/questionmark.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/questionmark.jpg" alt="Jostick state with questionmark on the display" width="150"> <br/>
 
 **Invalid Checksum:**
 The device sent back an ID, **however** the checksum of the message sent does not match the checksum calculated. This usually means that one or two of the bits of the ID received are not correct and there may have been some interference while receiving the data: <br/>
-<img src="./resources/joystick-states/exclamationmark.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/exclamationmark.jpg" alt="Jostick state with exclamationmark on the display" width="150"> <br/>
 
 **Failure:**
 The action failed. Nothing is stored into the RAM. This can occur when there is no supported card to be read. <br/>
-<img src="./resources/joystick-states/x.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/x.jpg" alt="Jostick state with an X on the display" width="150"> <br/>
 
 **S1 Success (type 1):** <br />
-<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/23.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" alt="Jostick state with checkmark on the display" width="150"> <img src="./resources/joystick-states/23.jpg" alt="Jostick state with 23 written on the display" width="150"><br />
 Both the type 2 and type 3 cards were found and scanned. This can happen when one card supports multiple frequencies, or when multiple cards were placed near the scanner.
 
 **S1 Success (type 2):** <br />
-<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/2.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" alt="Jostick state with checkmark on the display" width="150"> <img src="./resources/joystick-states/2.jpg" alt="Jostick state with 2 written on the display" width="150"><br />
 
 **S1 Success (type 3):** <br />
-<img src="./resources/joystick-states/checkmark.jpg" width="150"> <img src="./resources/joystick-states/3.jpg" width="150"><br />
+<img src="./resources/joystick-states/checkmark.jpg" alt="Jostick state with checkmark on the display" width="150"> <img src="./resources/joystick-states/3.jpg" alt="Jostick state with 3 written on the display" width="150"><br />
 
 ## Z mode
 
 This mode is used for writing scanned cards. You can choose from one of 3 options (Z1, Z2, Z3). <br/>
-<img src="./resources/joystick-states/Z1.jpg" width="150">
-<img src="./resources/joystick-states/Z2.jpg" width="150">
-<img src="./resources/joystick-states/Z3.jpg" width="150"> <br/>
+<img src="./resources/joystick-states/Z1.jpg" alt="Jostick state with Z1 option selected" width="150">
+<img src="./resources/joystick-states/Z2.jpg" alt="Jostick state with Z2 option selected" width="150">
+<img src="./resources/joystick-states/Z3.jpg" alt="Jostick state with Z3 option selected" width="150"> <br/>
 After you've read a card, you want to "clone it" onto your clear card. That's what these 3 modes are for. After you've selected one of the modes and pressed onto the joystick, there will be an action performed (based on the selection): <br/>
 
 - Z1: This mode works as Z2 and Z3 combined. It tries to write onto both types of cards and then shows the results. Because of that, it has special success results. Other results are the same as for the Z2 and Z3 options.
@@ -112,7 +112,7 @@ After you've read a card, you want to "clone it" onto your clear card. That's wh
 Since the typical responses (Success, Undefined response, Invalid checksum, Failure,...) are the same for Z modes (and have the same implications, just replace "read" with "write" while reading them) as for the S modes, they are not included here. If you see them after using the Z mode, just consult the docs part above. <br/>
 What is different, however, are the Z1 responses. After you try to write using Z1, there is always a type number flashed and the appropriate response for the card type (for example: "2 flashes with Failure and then 3 flashes with Success" -> This means that the device was unable to write onto type 2 card, however, it was able to write onto the type 3 card)
 If you were to try to write before scanning any card, the following symbol will be shown, indicating that there is no card stored in the RAM. <br/>
-<img src="./resources/joystick-states/no-card-scanned.jpg" width="150">
+<img src="./resources/joystick-states/no-card-scanned.jpg" alt="Jostick state with no-card-scanned symbol on the display" width="150">
 
 # How to setup?
 
